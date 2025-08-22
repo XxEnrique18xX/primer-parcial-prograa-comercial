@@ -57,4 +57,9 @@ CREATE TABLE employees (
     REFERENCES projects(id) ON UPDATE CASCADE ON DELETE SET NULL
 ) ENGINE=InnoDB;
 
+## Iniciar el proyecto con Node
+
+- npm init -y
+- npm i express sequelize mysql2 dotenv express-validator
+- npm run dev
 
