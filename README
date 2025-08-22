@@ -1,0 +1,67 @@
+# API RESTful de Gestión de Recursos Humanos
+
+Proyecto desarrollado en **Node.js (Express)** con **MySQL (Laragon)**  
+El sistema implementa una API RESTful para gestionar **empleados** y **proyectos**, con asignación de empleados a proyectos, validaciones y borrado lógico.
+
+---
+
+## Tecnologías utilizadas
+- **Node.js** + **Express**
+- **MySQL** (Laragon)
+- **Sequelize ORM**
+- **dotenv** para variables de entorno
+- **Postman / Thunder Client** para pruebas
+
+---
+
+
+---
+
+## Base de Datos
+
+La base de datos se llama **`hr_api`** y contiene dos tablas principales: **employees** y **projects**.  
+
+### Script SQL inicial
+```sql
+CREATE DATABASE IF NOT EXISTS hr_api
+  CHARACTER SET utf8mb4
+  COLLATE utf8mb4_general_ci;
+
+USE hr_api;
+
+-- Tabla proyectos
+CREATE TABLE projects (
+  id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(120) NOT NULL UNIQUE,
+  description TEXT,
+  startDate DATE NOT NULL,
+  endDate DATE,
+  completion DECIMAL(5,2) NOT NULL DEFAULT 0.00,
+  status ENUM('planned','active','completed','on_hold') DEFAULT 'planned',
+  estado TINYINT(1) NOT NULL DEFAULT 1,
+  createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+  updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  CHECK (completion >= 0 AND completion <= 100)
+) ENGINE=InnoDB;
+
+-- Tabla empleados
+CREATE TABLE employees (
+  id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  firstName VARCHAR(80) NOT NULL,
+  lastName VARCHAR(80) NOT NULL,
+  email VARCHAR(120) NOT NULL UNIQUE,
+  phone VARCHAR(30),
+  position VARCHAR(80),
+  department VARCHAR(80),
+  hireDate DATE NOT NULL,
+  salary DECIMAL(12,2) DEFAULT 0.00,
+  address VARCHAR(255),
+  estado TINYINT(1) NOT NULL DEFAULT 1,
+  currentProjectId INT UNSIGNED,
+  createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+  updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  CONSTRAINT fk_employee_project FOREIGN KEY (currentProjectId)
+    REFERENCES projects(id) ON UPDATE CASCADE ON DELETE SET NULL
+) ENGINE=InnoDB;
+
+
