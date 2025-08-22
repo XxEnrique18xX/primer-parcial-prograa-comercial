@@ -3,19 +3,12 @@
 Proyecto desarrollado en **Node.js (Express)** con **MySQL (Laragon)**  
 El sistema implementa una API RESTful para gestionar **empleados** y **proyectos**, con asignación de empleados a proyectos, validaciones y borrado lógico.
 
----
-
 ## Tecnologías utilizadas
 - **Node.js** + **Express**
 - **MySQL** (Laragon)
 - **Sequelize ORM**
 - **dotenv** para variables de entorno
 - **Postman / Thunder Client** para pruebas
-
----
-
-
----
 
 ## Base de Datos
 
